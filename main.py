@@ -9,6 +9,12 @@ def create_client(client_name):
     _add_coma()
 
 
+def list_clients():
+    global clients
+
+    print(clients)
+    
+
 def _add_coma():
     global clients
 
@@ -16,6 +22,9 @@ def _add_coma():
 
 
 if __name__ == '__main__':
+    list_clients()
+
     create_client('David')
-    print(clients)
+
+    list_clients()
 

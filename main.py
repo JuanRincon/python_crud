@@ -1,4 +1,4 @@
-
+import sys
 
 clients = 'pablo,ricardo,'
 
@@ -34,6 +34,17 @@ def delete_client(client_name):
        clients = clients.replace(client_name + ',', '')
     else:
         print('Client is not in clients list')
+        
+
+def search_client(client_name):
+    clients_list = clients.split(',')
+
+    for client in clients_list:
+        if client != client_name:
+            continue
+        else:
+            return True
+
 
 def _add_comma():
     global clients
@@ -46,12 +57,26 @@ def _print_welcome():
     print('*' * 50)
     print('What would you like to do today? ')
     print('[C]reate client')
+    print('[L]oad client')
     print('[U]pdate client')
     print('[D]elete client')
+    print('[S]erch client')
 
 
 def _get_client_name():
-    return input('What is the client name? ')
+    client_name = None
+
+    while not client_name:
+        client_name = input('What is the client name? ')
+
+        if client_name == 'exit':
+            client_name = None
+            break
+
+    if not client_name:
+            sys.exit()
+
+    return client_name
 
 
 if __name__ == '__main__':
@@ -64,6 +89,8 @@ if __name__ == '__main__':
         client_name = _get_client_name() 
         create_client(client_name)
         list_clients()
+    elif command == 'L':
+        list_clients()
     elif command == 'U':
         client_name = _get_client_name() 
         updated_client_name = input('What is the updated client name ')
@@ -73,6 +100,14 @@ if __name__ == '__main__':
         client_name = _get_client_name()
         delete_client(client_name)
         list_clients()
+    elif command == 'S':
+        client_name = _get_client_name()
+        found = search_client(client_name)
+
+        if found:
+            print('The clienty is in the client\'s list')
+        else:
+            print('The client: {} is not in our clinet\'s list' .format(client_name))
     else:
         print('Invalid command')
 
